@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Charity;
 use App\Http\Requests\StoreCharityRequest;
 use App\Http\Requests\UpdateCharityRequest;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class CharityController extends Controller
 {
@@ -82,5 +85,33 @@ class CharityController extends Controller
     public function destroy(Charity $charity)
     {
         //
+    }
+    public function register(Request $request)
+    {
+        echo('request');
+        return Charity::create([
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'slug' => $request->input('slug'),
+                'description'=>$request->input('description'),
+                'password' => Hash::make($request->input('password'))]
+        );
+    }
+    public function login(Request $request)
+    {
+        $charity = $request->only('name', 'password');
+        if (!Auth('charity')->attempt($charity)) {
+            return response()->json(["message"=>"Login Failed"], 401);
+        }
+         /** @var \App\Models\Charity $charity **/
+        $charity =Auth('charity')->user();
+        $token = $charity->createToken('token')->plainTextToken;
+        $cookie=cookie('jwt',$token,60*24);
+        return response()->json(["message"=>"Success",
+        "token"=>$token], 200)->withCookie($cookie);
+    }
+    public function profile($id){
+        return response()->json(Charity::find($id),200);
+
     }
 }

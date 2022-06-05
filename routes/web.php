@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\AuthentecationController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+// Route::get('/app', function () {
+//     return view('welcome');
+// });
+// Route::get('user', function () {
+//     return 'hello';
+// });
+// Route::get('register',[AuthentecationController::class,'register']);

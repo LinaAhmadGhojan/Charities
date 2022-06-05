@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\ProjectCharity;
 use App\Http\Requests\StoreProjectCharityRequest;
 use App\Http\Requests\UpdateProjectCharityRequest;
-
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 class ProjectCharityController extends Controller
 {
     /**
@@ -82,5 +83,21 @@ class ProjectCharityController extends Controller
     public function destroy(ProjectCharity $projectCharity)
     {
         //
+    }
+    public function projectCharitySave(Request $request){
+        $rules = [
+            'id_project' => 'required',
+            'id_branch' => 'required',
+            'start'=>'required',
+            'end'=>'required',
+            'description' => 'required'
+
+        ];
+        $validator = Validator::make($request->all(),$rules);
+        if($validator->fails()){
+            return response()->json($validator->errors(),400);
+        }
+        $projectCharity  = ProjectCharity::create($request->all());
+        return response()->json($projectCharity,201);
     }
 }

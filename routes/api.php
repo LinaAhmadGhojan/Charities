@@ -1,7 +1,10 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthentecationController;
+use App\Http\Controllers\CharityController;
+use App\Http\Controllers\ProjectCharityController;
+use App\Http\Controllers\ProjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +17,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::get('user', function () {
+    return 'hello';
 });
+///////////////////////Users//////////////////////////////////
+Route::post('register',[AuthentecationController::class,'register']);
+Route::post('login',[AuthentecationController::class,'login'])->name('login');
+//Route::get('my-profile',[AuthentecationController::class,'profile']);
+
+Route::middleware('auth:sanctum')->group(function (){
+    Route::get('my-profile',[AuthentecationController::class,'profile']);
+
+});
+///////////////////////////////////Charity///////////////////////
+Route::post('charity/register',[CharityController::class,'register']);
+Route::post('charity/login',[CharityController::class,'login'])->name('login');
+Route::get('charity/my-profile',[CharityController::class,'profile']);
+Route::get('projects/{charity_id}',[ProjectController::class,'projects']);
+Route::post('add-project',[ProjectCharityController::class,'projectCharitySave']);
+Route::get('my-profile/{id}',[CharityController::class,'profile']);

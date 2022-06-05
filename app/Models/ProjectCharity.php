@@ -13,5 +13,6 @@ class ProjectCharity extends Model
         "id_branch",
         "start",
         "end",
+        "description",
     ];
 }

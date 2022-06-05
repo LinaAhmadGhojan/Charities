@@ -40,6 +40,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'charity' => [
+            'driver' => 'session',
+            'provider' =>'charity',
+            'hash' => true,
+        ],
     ],
 
     /*
@@ -64,6 +69,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
+        'charity' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Charity::class,
+        ]
 
         // 'users' => [
         //     'driver' => 'database',

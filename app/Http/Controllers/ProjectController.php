@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
-
+use Illuminate\Support\Facades\DB;
 class ProjectController extends Controller
 {
     /**
@@ -83,4 +83,9 @@ class ProjectController extends Controller
     {
         //
     }
+    public function projects($charity_id){
+        $projects = DB::table('projects')->select('id','name')->whereNull('charityID')->orWhere('charityID','=',$charity_id)->get();
+        return response()->json($projects,200);
+    }
+
 }
