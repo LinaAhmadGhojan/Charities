@@ -111,6 +111,8 @@ class CharityController extends Controller
         "token"=>$token], 200)->withCookie($cookie);
     }
     public function profile($id){
+
+        
         return response()->json(Charity::find($id),200);
 
     }

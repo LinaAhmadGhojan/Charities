@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthentecationController;
 use App\Http\Controllers\CharityController;
+use App\Http\Controllers\Emloyee;
 use App\Http\Controllers\ProjectCharityController;
 use App\Http\Controllers\ProjectController;
 
@@ -31,8 +32,17 @@ Route::middleware('auth:sanctum')->group(function (){
 });
 ///////////////////////////////////Charity///////////////////////
 Route::post('charity/register',[CharityController::class,'register']);
-Route::post('charity/login',[CharityController::class,'login'])->name('login');
+Route::post('charity/login',[CharityController::class,'login'])->name('login.charity');
 Route::get('charity/my-profile',[CharityController::class,'profile']);
 Route::get('projects/{charity_id}',[ProjectController::class,'projects']);
 Route::post('add-project',[ProjectCharityController::class,'projectCharitySave']);
 Route::get('my-profile/{id}',[CharityController::class,'profile']);
+
+
+     /////*****************  Employee   *********************/////
+    Route::controller(Emloyee::class)->group(function () {
+        Route::get('employee/{id_charity}','indexEmployee');
+        Route::post('add/employee/{id_charity}','sortEmployee');
+        Route::get('add/employee/{id_charity}','addEmployee');
+
+    });

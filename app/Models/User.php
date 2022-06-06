@@ -24,9 +24,10 @@ class User extends Authenticatable
         'id_country',
         'email',
         'password',
-        'id_city',
+        'address',
         'birthday',
-        'gender'
+        'gender',
+        'role'
     ];
 
 

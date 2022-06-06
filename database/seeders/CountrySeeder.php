@@ -14,6 +14,9 @@ class CountrySeeder extends Seeder
      */
     public function run()
     {
-        //
+        $countries = [
+              
+
+        ];
     }
 }

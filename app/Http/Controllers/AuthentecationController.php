@@ -10,6 +10,8 @@ class AuthentecationController extends Controller
 {
     public function register(Request $request)
     {
+       // return $request;
+        
         echo('request');
         return User::create([
                 'first_name' => $request->input('first_name'),
@@ -18,7 +20,7 @@ class AuthentecationController extends Controller
                 'gender' => $request->input('gender'),
                 'id_country' => $request->input('id_country'),
                 'birthday' => $request->input('birthday'),
-                'id_city' => $request->input('id_city'),
+                'address' => $request->input('address'),
                 'password' => Hash::make($request->input('password'))]
         );
     }
