@@ -13,9 +13,9 @@ use App\Http\Controllers\AuthentecationController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 // Route::get('/app', function () {
 //     return view('welcome');
 // });
