@@ -5,15 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+
 class Needer extends Model
 {
     use HasFactory;
+
+    use SoftDeletes;
     protected $fillable=[
-        "id_user",
-        "id_branch",
         "accept",
-
-
-
-    ];
+        'id_information' ,
+        'id_charity',
+        "start"
+         ];
 }

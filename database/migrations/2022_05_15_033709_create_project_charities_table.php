@@ -15,7 +15,9 @@ return new class extends Migration
     {
         Schema::create('project_charities', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("id_branch")->constrained("branch_charities");
+
+            $table->foreignId("id_charity")->constrained("charities");
+
             $table->foreignId("id_project")->constrained("projects");
             $table->date("start");
             $table->date("end");

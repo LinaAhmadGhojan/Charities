@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class CountrySeeder extends Seeder
+class DonerSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,9 +15,5 @@ class CountrySeeder extends Seeder
     public function run()
     {
         //
-        $countries = [
-
-
-        ];
     }
 }

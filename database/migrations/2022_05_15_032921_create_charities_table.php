@@ -16,9 +16,16 @@ return new class extends Migration
         Schema::create('charities', function (Blueprint $table) {
             $table->id();
             $table->string("name");
+
+            $table->string("user_name");
+            $table->string('email')->unique();
+            $table->string('password');
             $table->string("description");
-            $table->text("slug");
-            $table->text("picture");
+            $table->text("picture")->nullable();
+            $table->string("phone");
+            $table->foreignId('id_country')->constrained("countries");
+            $table->string("address");
+
             $table->timestamps();
             $table->index("name");
         });

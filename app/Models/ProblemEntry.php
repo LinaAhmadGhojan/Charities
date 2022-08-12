@@ -15,7 +15,8 @@ class ProblemEntry extends Model
         "description",
         "first_name",
         "last_name",
-        "attchment"
+        "attchment",
+        "status"
 
 
 

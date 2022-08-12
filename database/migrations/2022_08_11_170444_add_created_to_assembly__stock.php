@@ -13,14 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('announcements', function (Blueprint $table) {
-            $table->id();
-
-            $table->foreignId("id_charity")->constrained("charities");
-            $table->string("name");
-            $table->string("slug");
-            $table->string("description");
-            $table->index("name");
+        Schema::table('assembly__stock', function (Blueprint $table) {
             $table->timestamps();
         });
     }
@@ -32,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('announcements');
+        Schema::table('assembly__stock', function (Blueprint $table) {
+            //
+        });
     }
 };

@@ -32,4 +32,16 @@ class DonationController extends Controller
         $projects = DB::table('donatinos')->select('id','first_name','last_name','created_date','donated_thing')->Where('type','=','pending')->Where('id_branch','=',$id_branch)->get();
         return response()->json($projects,200);
     }
+    public function donationUpdate(Request $request, $id){
+        $problem = Donations::find($id);
+        if(is_null($problem)){
+            return response()->json(["message"=>"Record not found"],404);
+        }
+        $problem->update($request->all());
+        return response()->json($problem,200);
+    }
+    public function recordDonations($id_branch){
+        $projects = DB::table('donatinos')->select('id','first_name','last_name','created_date','donated_thing')->Where('type','=','record')->Where('id_branch','=',$id_branch)->orderBy('created_date', 'DESC')->get();
+        return response()->json($projects,200);
+    }
 }

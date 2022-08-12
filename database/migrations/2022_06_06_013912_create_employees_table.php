@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('announcements', function (Blueprint $table) {
+        Schema::create('employees', function (Blueprint $table) {
             $table->id();
-
-            $table->foreignId("id_charity")->constrained("charities");
-            $table->string("name");
-            $table->string("slug");
-            $table->string("description");
-            $table->index("name");
+            $table->foreignId('id_information')->constrained("information_users");
+            $table->integer('salary');
+             $table->date('start');
+             $table->string("type");
+             $table->foreignId('id_charity')->constrained("charities");  
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('announcements');
+        Schema::dropIfExists('employees');
     }
 };

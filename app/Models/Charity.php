@@ -23,8 +23,13 @@ class Charity extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+
+        'address',
+        'user_name',
         'description',
         'password',
-        'slug'
+        'phone',
+
+
     ];
 }

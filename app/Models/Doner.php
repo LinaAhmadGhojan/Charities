@@ -4,14 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
-class Service extends Model
+use Illuminate\Database\Eloquent\SoftDeletes;
+class Doner extends Model
 {
     use HasFactory;
+    use SoftDeletes;
     protected $fillable=[
+        'id_information',
+        "id_charity",
+        "date",
+        "quality"
 
-        "name_ar",
-        "name_en"
 
     ];
 }

@@ -15,11 +15,12 @@ return new class extends Migration
     {
         Schema::create('needers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("id_user")->constrained("users");
-            $table->foreignId("id_branch")->constrained("branch_charities");
+
+            $table->foreignId("id_information")->constrained("information_users");
+            $table->foreignId("id_charity")->constrained("charities");
+            $table->string('start');
             $table->enum("accept",["0","1"])->default("0");
 
-            $table->index("id_user","id_branch");
             $table->timestamps();
         });
     }

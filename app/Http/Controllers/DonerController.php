@@ -2,23 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Needer;
-use App\Http\Requests\StoreNeederRequest;
-use App\Http\Requests\UpdateNeederRequest;
-
-use App\Models\Charity;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Doner;
+use App\Http\Requests\StoreDonerRequest;
+use App\Http\Requests\UpdateDonerRequest;
+use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\PersonalAccessToken;
 use App\Models\InformationUser;
-use App\Models\Phone;
-use App\Models\User;
-use Illuminate\Http\Request;
+use App\Models\Charity;
+use Illuminate\Support\Facades\Auth;
 
-
-class NeederController extends Controller
+class DonerController extends Controller
 {
-
 
     public function userCharity(Request $request)
      {
@@ -27,7 +23,7 @@ class NeederController extends Controller
            return  $user=$personal->tokenable;
      }
 
-     public function sortNeeder(Request $request)
+     public function sortDoner(Request $request)
     {
 
         $charity= $this->userCharity($request);
@@ -50,17 +46,17 @@ class NeederController extends Controller
 
                 ]);
 
-                $needer=Needer::create([
+                $needer=Doner::create([
                     'id_information'=>$information->id,
                     'id_charity' => $charity->id,
-                    "start"=> $request->input('start'),
-                    "accept"=>1,
+                    "date"=> $request->input('date'),
+                    "quality"=>$request->input('quality'),
                 ]);
                 return response()->json(["message"=>"Success",], 200);
     }
 
 
-    public function indexNeeder(Request $request)
+    public function indexDoner(Request $request)
     {
         $charity= $this->userCharity($request);
         if (!Charity::find($charity->id)) {
@@ -73,7 +69,7 @@ class NeederController extends Controller
         return response()->json($employee);
     }
 
-    public function addNeeder(Request $request)
+    public function addDoner(Request $request)
     {
 
          $charity= $this->userCharity($request);
@@ -87,20 +83,18 @@ class NeederController extends Controller
        // return User::all()->res
     }
 
-    public function deleteNeeder($id)
+    public function deleteDoner($id)
     {
 
-        $employee=Needer::find($id);
+        $employee=Doner::find($id);
         if (!$employee)
         {
-           return response()->json(["message"=>"not found Needer "], 401);
+           return response()->json(["message"=>"not found Doner "], 401);
         }
 
         else
         $employee->delete();
-        return response()->json(["message"=>"Delete Needer "], 401);
+        return response()->json(["message"=>"Delete Doner "], 401);
 
     }
-
-
 }
