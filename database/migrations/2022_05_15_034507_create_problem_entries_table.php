@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId("id_user_enter")->constrained("users");
             $table->foreignId("id_type_problem")->constrained("type_problems");
+            $table->foreignId("id_charity")->constrained("charities");
             $table->string("phone");
             $table->text("description");
             $table->string("first_name");

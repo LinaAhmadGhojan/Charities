@@ -11,6 +11,7 @@ class ProblemEntry extends Model
     protected $fillable=[
         "id_type_problem",
         "id_user_enter",
+        "id_charity",
         "phone",
         "description",
         "first_name",

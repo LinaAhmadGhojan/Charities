@@ -21,6 +21,7 @@ class ProblemEntryController extends Controller
             'description' => 'required',
             'attchment',
             'id_user_enter',
+            'id_charity',
 
         ];
         $validator = Validator::make($request->all(),$rules);

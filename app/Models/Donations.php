@@ -11,7 +11,7 @@ class Donations extends Model
     protected $table = "donatinos";
     public $timestamps = false;
     protected $fillable=[
-        "id_branch",
+        "id_charity",
         "id_user",
         "id_project",
         "first_name",

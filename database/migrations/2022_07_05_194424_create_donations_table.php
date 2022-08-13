@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('last_name')->nullable();
             $table->string('donated_thing')->nullable();
             $table->foreignId("id_user")->constrained("users");
-            $table->foreignId("id_branch")->constrained("branch_charities");
+            $table->foreignId("id_charity")->constrained("charities");
             $table->foreignId("id_project")->constrained("project_charities");
 
         });

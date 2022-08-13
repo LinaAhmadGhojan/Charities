@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreignId("id_project")->constrained("projects");
             $table->date("start");
             $table->date("end");
+
             $table->timestamps();
         });
     }

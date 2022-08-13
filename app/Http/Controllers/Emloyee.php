@@ -162,4 +162,14 @@ class Emloyee extends Controller
         ]);
         return response()->json($employee, 200);
     }
+
+    public function getEmployee($id_charity){
+        $employee=DB::table('employees')
+        ->join('information_users','information_users.id','=','employees.id_information')
+        ->where('id_charity',$id_charity)->get();
+
+        return response()->json($employee);
+
+
+    }
 }

@@ -9,7 +9,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\PersonalAccessToken;
 
 
@@ -51,7 +51,7 @@ class AuthentecationController extends Controller
         $token = $user->createToken('token')->plainTextToken;
         $cookie=cookie('jwt',$token,60*24);
         return response()->json(["message"=>"Success",
-        "token"=>$token], 200)->withCookie($cookie);
+        "token"=>$token,"user"=>$user], 200)->withCookie($cookie);
     }
 
     // public function profile(){
@@ -72,9 +72,10 @@ public function user(Request $request) {
 
 
 
-    public function profile(Request  $request){
-
-        return  $charity=$this->user($request);
+    public function profile($id){
+        $user=DB::table('users')->select('users.id','users.email','role','phone','first_name','last_name','address','birthday','gender')
+        ->join('information_users', 'information_users.id', '=', 'users.id_information')->Where('users.id','=',$id)->get();
+        return response()->json($user,200);
 
     }
 }

@@ -13,6 +13,7 @@ use App\Http\Controllers\ProblemEntryController;
 
 use App\Http\Controllers\AssemblyStockController;
 use App\Models\AssemblyStock;
+use App\Models\ProjectCharity;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +33,10 @@ Route::get('user', function () {
 Route::post('register',[AuthentecationController::class,'register']);
 Route::post('login',[AuthentecationController::class,'login'])->name('login');
 //Route::get('my-profile',[AuthentecationController::class,'profile']);
-
+Route::get('all-charities',[CharityController::class,'charities']);
+Route::get('charity-details/{id}',[CharityController::class,'charityDetails']);
+Route::get('all-projects',[ProjectCharityController::class,'projects']);
+Route::get('user-profile/{id}',[AuthentecationController::class,'profile']);
 Route::middleware('auth:sanctum')->group(function (){
     Route::get('my-profile',[AuthentecationController::class,'profile']);
 
@@ -40,17 +44,18 @@ Route::middleware('auth:sanctum')->group(function (){
 ///////////////////////////////////Charity///////////////////////
 Route::post('charity/register',[CharityController::class,'register']);
 Route::post('charity/login',[CharityController::class,'login'])->name('login');
-Route::get('charity/my-profile',[CharityController::class,'profile']);
+Route::get('charity/my-profile/{id}',[CharityController::class,'profile']);
 Route::get('projects/{charity_id}',[ProjectController::class,'projects']);
+Route::get('get-projects-by-charity/{id_charity}',[ProjectCharityController::class,'getProjectsCharity']);
 Route::post('add-project',[ProjectCharityController::class,'projectCharitySave']);
 Route::get('my-profile/{id}',[CharityController::class,'profile']);
 Route::post('charity/add-donation',[DonationController::class,'donationSave']);
-Route::get('charity/upcoming-donations/{id_branch}',[DonationController::class,'upcomingDonations']);
-Route::get('charity/pending-donations/{id_branch}',[DonationController::class,'pendingDonations']);
-Route::get('charity/record-donations/{id_branch}',[DonationController::class,'recordDonations']);
+Route::get('charity/upcoming-donations/{id_charity}',[DonationController::class,'upcomingDonations']);
+Route::get('charity/pending-donations/{id_charity}',[DonationController::class,'pendingDonations']);
+Route::get('charity/record-donations/{id_charity}',[DonationController::class,'recordDonations']);
 Route::get('charity/edit-donations/{id}',[DonationController::class,'Updatedonations']);
  Route::get('my-profile',[AuthentecationController::class,'profile']);
-
+ Route::post('charity/edit-profile/{id}',[CharityController::class,'charityUpdate']);
 
 
  ///////////////////////////////////Charity///////////////////////
@@ -63,10 +68,10 @@ Route::get('charity/edit-donations/{id}',[DonationController::class,'Updatedonat
  ///////************** group charity ***************** */
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
- Route::post('charity/needer',[CharityController::class,'needer']);
-Route::get('charity/my-profile',[CharityController::class,'profile']);
-Route::get('projects/{charity_id}',[ProjectController::class,'projects']);
-Route::post('add-project',[ProjectCharityController::class,'projectCharitySave']);
+ //Route::post('charity/needer',[CharityController::class,'needer']);
+//Route::get('charity/my-profile',[CharityController::class,'profile']);
+//Route::get('projects/{charity_id}',[ProjectController::class,'projects']);
+//Route::post('add-project',[ProjectCharityController::class,'projectCharitySave']);
 
 });
 
@@ -79,6 +84,7 @@ Route::post('add-project',[ProjectCharityController::class,'projectCharitySave']
       //  Route::post('add/employee','addEmployee');
         Route::delete('delete/employee/{id}','deleteEmlpyee');
         Route::post('edit/employee/{id}','editEmployee');
+        Route::get('get-employees/{id_charity}','getEmployee');
 
     });
 

@@ -6,6 +6,7 @@ use App\Models\ProjectCharity;
 use App\Http\Requests\StoreProjectCharityRequest;
 use App\Http\Requests\UpdateProjectCharityRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 class ProjectCharityController extends Controller
 {
@@ -86,10 +87,12 @@ class ProjectCharityController extends Controller
     }
     public function projectCharitySave(Request $request){
         $rules = [
-            'id_project' => 'required',
-            'id_branch' => 'required',
+            //'id_project' => 'required',
+            'id_charity' => 'required',
             'start'=>'required',
             'end'=>'required',
+            'type'=>'required',
+            'title'=>'requires',
             'description' => 'required'
 
         ];
@@ -99,5 +102,14 @@ class ProjectCharityController extends Controller
         }
         $projectCharity  = ProjectCharity::create($request->all());
         return response()->json($projectCharity,201);
+    }
+    public function getProjectsCharity($id_charity){
+        $project=DB::table('project_charities')->where('id_charity',$id_charity)->get();
+
+        return response()->json($project);
+    }
+    public function projects(){
+        return response()->json(ProjectCharity::get(),200);
+
     }
 }

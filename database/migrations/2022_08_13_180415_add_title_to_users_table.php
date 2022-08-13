@@ -13,12 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('special_charities', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId("id_special")->constrained("specials");
-            $table->foreignId("id_charity")->constrained("charities");
-            $table->timestamps();
-            $table->index("id_special","id_charity");
+        Schema::table('project_charities', function (Blueprint $table) {
+            $table->string("description");
+            $table->string("title");
+            $table->string("type");
         });
     }
 
@@ -29,6 +27,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('special_charities');
+        Schema::table('project_charities', function (Blueprint $table) {
+            //
+        });
     }
 };
