@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Service;
 use App\Http\Requests\StoreServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
-
+use Illuminate\Http\Request;
 class ServiceController extends Controller
 {
     /**
@@ -82,5 +82,21 @@ class ServiceController extends Controller
     public function destroy(Service $service)
     {
         //
+    }
+    public function serviceSave(Request $request,$id_charity){
+
+        $model =$request->all();
+        $service  = Service::create($model);
+
+        $service_id=$service ->id;
+        $serviceCharityModel =[];
+        $serviceCharityModel["id_service"]=$service_id;
+        $serviceCharityModel["id_charity"]=$id_charity;
+        $serviceCharity = ServiceCharityController::createServiceCharitySave($serviceCharityModel);
+        // $service  = Service::create($request->all());
+        // $serviceCharity = $service->id_service;
+        // $id_charity ->  $serviceCharity->input('id_charity');
+        // $serviceCharity = ServiceCharityController::serviceCharitySave($serviceCharity);
+        return response()->json($serviceCharity,200);
     }
 }

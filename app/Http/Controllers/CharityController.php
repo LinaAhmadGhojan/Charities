@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\PersonalAccessToken;
+use App\Http\Controllers\FileController;
 
 class CharityController extends Controller
 {
@@ -40,8 +41,9 @@ class CharityController extends Controller
         //echo('request');
         $service_array=$request->service;
         $special_array=$request->special;
-        $number_service= count($request->service);
-        $number_spical=count($request->special);
+      //  $number_service= count($request->service);
+        //$number_spical=count($request->special);
+        $uploadNew = FileController::uploadFile($request);
         $charity= Charity::create([
                 "id_country"=>$request->input('id_country'),
                 'name' => $request->input('name'),
@@ -50,24 +52,26 @@ class CharityController extends Controller
                 'phone' => $request->input('phone'),
                 'address' => $request->input('address'),
                 'description'=>$request->input('description'),
-                'password' => Hash::make($request->input('password'))]
+                'password' => Hash::make($request->input('password')),
+                'picture'=>$uploadNew->getData()->file_url
+                ]
         );
 
-     for($i=0;$i<$number_service;$i++)
-     {
-        ServiceCharity::create([
-            "id_charity"=>$charity->id,
-            "id_service"=>$service_array[$i]
-          ]);
-     }
+    //  for($i=0;$i<$number_service;$i++)
+    //  {
+    //     ServiceCharity::create([
+    //         "id_charity"=>$charity->id,
+    //         "id_service"=>$service_array[$i]
+    //       ]);
+    //  }
 
-     for($i=0;$i<$number_service;$i++)
-     {
-        SpecialCharity::create([
-            "id_charity"=>$charity->id,
-            "id_special"=>$special_array[$i]
-          ]);
-     }
+    //  for($i=0;$i<$number_service;$i++)
+    //  {
+    //     SpecialCharity::create([
+    //         "id_charity"=>$charity->id,
+    //         "id_special"=>$special_array[$i]
+    //       ]);
+    //  }
 
      $token = $charity->createToken('token')->plainTextToken;
      $cookie=cookie('jwt',$token,60*24);
@@ -126,11 +130,29 @@ class CharityController extends Controller
     public function charityDetails($id){
         $charity=DB::table('charities')->select('name','email','phone','description','name_ar','address')
         ->join('countries', 'countries.id', '=', 'charities.id_country')->Where('charities.id','=',$id)->get();
-        $service=DB::table('services')->select('name_ar')
+        $service=DB::table('services')->select('name_ar','id_charity')
         ->join('service_charities','services.id','=','service_charities.id_service')->Where('service_charities.id_charity','=',$id)->get();
         $specials=DB::table('specials')->select('name_ar')
         ->join('special_charities','specials.id','=','special_charities.id_special')->Where('special_charities.id_charity','=',$id)->get();
         return response()->json(["charity"=>$charity,"service"=>$service,"specials"=>$specials],200);
+
+    }
+    public function deleteCharity($id)
+    {
+
+         // $charity= $this->userCharity($request);
+
+        // if (!Charity::find($charity->id)) {
+        //     return response()->json(["message"=>"not found charity "], 401);
+        // }
+
+       // $employee = Charity::find($id);
+        //$information = InformationUser::find($employee->id_information);
+
+        //$employee->delete();
+      //$information->delete();
+      DB::delete('DELETE FROM charities WHERE id = ?', [$id]);
+        return response()->json('deleted successfuly', 204);
 
     }
 

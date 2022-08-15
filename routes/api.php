@@ -10,8 +10,9 @@ use App\Http\Controllers\DonerController;
 use App\Http\Controllers\Emloyee;
 use App\Http\Controllers\NeederController;
 use App\Http\Controllers\ProblemEntryController;
-
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\AssemblyStockController;
+use App\Http\Controllers\ServiceCharityController;
 use App\Models\AssemblyStock;
 use App\Models\ProjectCharity;
 
@@ -53,10 +54,12 @@ Route::post('charity/add-donation',[DonationController::class,'donationSave']);
 Route::get('charity/upcoming-donations/{id_charity}',[DonationController::class,'upcomingDonations']);
 Route::get('charity/pending-donations/{id_charity}',[DonationController::class,'pendingDonations']);
 Route::get('charity/record-donations/{id_charity}',[DonationController::class,'recordDonations']);
+Route::get('charity/records-donations-by-month/{id_charity}',[DonationController::class,'recordsDonations']);
+Route::get('charity/records-donations-by-year/{id_charity}',[DonationController::class,'recordsDonationsByYear']);
 Route::get('charity/edit-donations/{id}',[DonationController::class,'Updatedonations']);
  Route::get('my-profile',[AuthentecationController::class,'profile']);
  Route::post('charity/edit-profile/{id}',[CharityController::class,'charityUpdate']);
-
+ Route::delete('delete-charity/{id}',[CharityController::class,'deleteCharity']);
 
  ///////////////////////////////////Charity///////////////////////
  Route::post('charity/register',[CharityController::class,'register']);
@@ -117,10 +120,13 @@ Route::get('charity/pending-problem/{id_branch}',[ProblemEntryController::class,
 Route::get('charity/emergency-problem/{id_branch}',[ProblemEntryController::class,'emergencyProblem']);
 Route::get('charity/record-problem/{id_branch}',[ProblemEntryController::class,'recordProblem']);
 Route::get('charity/edit-problem/{id}',[ProblemEntryController::class,'problemUpdate']);
+Route::get('charity/records-needers-by-month/{id_charity}',[ProblemEntryController::class,'recordsNeedersByMonth']);
+Route::get('charity/records-needers-by-year/{id_charity}',[ProblemEntryController::class,'recordsNeedersByYear']);
 
 //////////////////////*************Assembly Stock******************** *////////////////
 
 Route::get('charity/get-assembly/{id_charity}',[AssemblyStockController::class,'getAssemblyStock']);
 Route::post('charity/add-to-assembly',[AssemblyStockController::class,'addToAssemblyStock']);
+Route::post('charity/other-service/{id_charity}',[ServiceController::class,'serviceSave']);
 
 

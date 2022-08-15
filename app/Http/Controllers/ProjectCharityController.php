@@ -91,8 +91,8 @@ class ProjectCharityController extends Controller
             'id_charity' => 'required',
             'start'=>'required',
             'end'=>'required',
-            'type'=>'required',
-            'title'=>'requires',
+
+            'title'=>'required',
             'description' => 'required'
 
         ];

@@ -11,7 +11,7 @@ class ProjectCharity extends Model
     protected $table = "project_charities";
     protected $fillable=[
         "id_project",
-        "id_chartiy",
+        "id_charity",
         "start",
         "end",
         "description",

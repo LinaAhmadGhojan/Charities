@@ -12,7 +12,7 @@ class DonationController extends Controller
         $rules = [
             'first_name' => 'required',
             'last_name' => 'required',
-            'created_date'=>'required',
+            'created_at'=>'required',
             'donated_thing'=>'required',
             'id_charity' => 'required',
             'id_project'
@@ -42,7 +42,25 @@ class DonationController extends Controller
         return response()->json($problem,200);
     }
     public function recordDonations($id_charity){
-        $projects = DB::table('donatinos')->select('id','first_name','last_name','created_date','donated_thing')->Where('type','=','record')->Where('id_charity','=',$id_charity)->orderBy('created_date', 'DESC')->get();
+        $projects = DB::table('donatinos')->select('id','first_name','last_name','created_date','donated_thing')->Where('type','=','record')->Where('id_charity','=',$id_charity)->orderBy('created_at', 'DESC')->get();
         return response()->json($projects,200);
+    }
+    public function recordsDonations(Request $request,$id_charity){
+        $month = $request->month;
+        $records = Donations::whereMonth('created_at', '=', $month)->Where('type','=','record')->Where('id_charity','=',$id_charity)
+              ->count();
+         $users=DB::table('users')->count();
+         $avg = ($records / $users * 100);
+         return response()->json($avg,200);
+
+    }
+    public function recordsDonationsByYear(Request $request,$id_charity){
+        $year = $request->year;
+        $records = Donations::whereYear('created_at', '=', $year)->Where('type','=','record')->Where('id_charity','=',$id_charity)
+              ->count();
+         $users=DB::table('users')->count();
+         $avg = ($records / $users * 100);
+         return response()->json($avg,200);
+
     }
 }

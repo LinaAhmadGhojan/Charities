@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ServiceCharity;
 use App\Http\Requests\StoreServiceCharityRequest;
 use App\Http\Requests\UpdateServiceCharityRequest;
-
+use Illuminate\Http\Request;
 class ServiceCharityController extends Controller
 {
     /**
@@ -83,4 +83,15 @@ class ServiceCharityController extends Controller
     {
         //
     }
+    public static function serviceCharitySave(Request $request){
+
+        $service  = ServiceCharity::create($request->all());
+        return response()->json($service,200);
+    }
+    public static function createServiceCharitySave($request){
+
+        $service  = ServiceCharity::create($request);
+        return response()->json($service,200);
+    }
+
 }
